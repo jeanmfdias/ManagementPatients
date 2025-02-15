@@ -8,3 +8,12 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    format: false
+  data:
+    web:
+      pageable:
+        page-parameter: page
+        size-parameter: limit
+      sort:
+        sort-parameter: sort

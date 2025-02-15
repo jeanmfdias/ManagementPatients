@@ -1,9 +1,6 @@
 package com.managementpatients.api.controllers;
 
-import com.managementpatients.api.domains.doctor.CreateDataDoctorDto;
-import com.managementpatients.api.domains.doctor.Doctor;
-import com.managementpatients.api.domains.doctor.IDoctorRepository;
-import com.managementpatients.api.domains.doctor.ListDataDoctorDto;
+import com.managementpatients.api.domains.doctor.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +10,16 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("doctors")
 public class DoctorController {
     @Autowired
     private IDoctorRepository doctorRepository;
+
+    @Autowired
+    private DoctorService doctorService;
 
     @PostMapping
     @Transactional
@@ -28,9 +29,17 @@ public class DoctorController {
     }
 
     @GetMapping
-    public Page<ListDataDoctorDto> listAll(@PageableDefault(size = 10, sort = {"nome"})
+    public Page<ListDataDoctorDto> listAll(@PageableDefault(size = 10, sort = {"name"})
                                            Pageable pagination) {
         return doctorRepository.findAll(pagination)
                 .map(ListDataDoctorDto::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public String update(@RequestBody @Valid UpdateDataDoctorDto updateDto) {
+        Doctor doctor = doctorRepository.getReferenceById(updateDto.id());
+        doctorService.update(doctor, updateDto);
+        return "Update with success";
     }
 }
