@@ -34,6 +34,13 @@ public class DoctorController {
         return ResponseEntity.created(uri).body(dto);
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<DataDoctorDto> listOne(@PathVariable Long id) {
+        Doctor doctor = doctorRepository.getReferenceById(id);
+        DataDoctorDto dto = new DataDoctorDto(doctor);
+        return ResponseEntity.ok(dto);
+    }
+
     @GetMapping
     public ResponseEntity<Page<ListDataDoctorDto>> listAll(@PageableDefault(size = 10, sort = {"name"})
                                            Pageable pagination) {
