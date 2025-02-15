@@ -4,6 +4,8 @@ import com.managementpatients.api.domains.address.Address;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "doctors")
 @Getter
@@ -26,6 +28,9 @@ public class Doctor {
 
     @Embedded
     private Address address;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 
     public Doctor(CreateDataDoctorDto dto) {
         this.name = dto.name();

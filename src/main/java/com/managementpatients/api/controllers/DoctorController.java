@@ -31,7 +31,7 @@ public class DoctorController {
     @GetMapping
     public Page<ListDataDoctorDto> listAll(@PageableDefault(size = 10, sort = {"name"})
                                            Pageable pagination) {
-        return doctorRepository.findAll(pagination)
+        return doctorRepository.findAllByDeletedAtIsNull(pagination)
                 .map(ListDataDoctorDto::new);
     }
 
@@ -41,5 +41,13 @@ public class DoctorController {
         Doctor doctor = doctorRepository.getReferenceById(updateDto.id());
         doctorService.update(doctor, updateDto);
         return "Update with success";
+    }
+
+    @DeleteMapping("{id}")
+    @Transactional
+    public String delete(@PathVariable Long id) {
+//        doctorRepository.deleteById(id);
+        doctorService.delete(id);
+        return "Delete with success";
     }
 }
