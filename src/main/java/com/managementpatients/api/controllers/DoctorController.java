@@ -7,6 +7,8 @@ import com.managementpatients.api.domains.doctor.ListDataDoctorDto;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,10 +27,8 @@ public class DoctorController {
     }
 
     @GetMapping
-    public List<ListDataDoctorDto> listAll() {
-        return doctorRepository.findAll()
-                .stream()
-                .map(ListDataDoctorDto::new)
-                .toList();
+    public Page<ListDataDoctorDto> listAll(Pageable pagination) {
+        return doctorRepository.findAll(pagination)
+                .map(ListDataDoctorDto::new);
     }
 }
