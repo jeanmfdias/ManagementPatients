@@ -6,5 +6,6 @@ public record CreateDataDoctorDto(String name,
                                   String email,
                                   String crm,
                                   Specialty specialty,
+                                  String phone,
                                   CreateDataAddressDto address) {
 }

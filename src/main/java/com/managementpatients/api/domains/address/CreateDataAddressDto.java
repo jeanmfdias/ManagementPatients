@@ -1,6 +1,6 @@
 package com.managementpatients.api.domains.address;
 
-public record CreateDataAddressDto(String name,
+public record CreateDataAddressDto(String addressName,
                                    String neighborhood,
                                    String zipcode,
                                    String city,
