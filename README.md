@@ -1,6 +1,6 @@
 # Management Patients
 ## Next features
-- [ ] Create a doctor
+- [x] Create a doctor
 - [ ] List all doctors
 - [ ] Update a doctor
 - [ ] Delete a doctor
