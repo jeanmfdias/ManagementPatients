@@ -17,3 +17,7 @@ spring:
         size-parameter: limit
       sort:
         sort-parameter: sort
+
+server:
+  error:
+    include-stacktrace: never
