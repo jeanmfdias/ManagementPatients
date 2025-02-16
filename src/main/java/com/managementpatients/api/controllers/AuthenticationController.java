@@ -1,6 +1,9 @@
 package com.managementpatients.api.controllers;
 
+import com.managementpatients.api.infra.security.AuthTokenDto;
 import com.managementpatients.api.domains.users.DataLoginDto;
+import com.managementpatients.api.domains.users.TokenService;
+import com.managementpatients.api.domains.users.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +21,15 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid DataLoginDto dataLoginDto) {
         var token = new UsernamePasswordAuthenticationToken(dataLoginDto.email(), dataLoginDto.password());
         var authentication = manager.authenticate(token);
-        return ResponseEntity.ok().build();
+        var authTokenDto = new AuthTokenDto(tokenService.tokenGenerate((User) authentication.getPrincipal()));
+        return ResponseEntity.ok(authTokenDto);
     }
 
 }

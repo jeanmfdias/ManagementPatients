@@ -2,9 +2,9 @@ spring:
   application:
     name: api
   datasource:
-    url: jdbc:postgresql://localhost:5432/managementpatients
-    username: postgres
-    password: secret
+    url: jdbc:postgresql://localhost:5432/${DB_NAME:managementpatients}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:secret}
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -21,3 +21,8 @@ spring:
 server:
   error:
     include-stacktrace: never
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:123456789}
