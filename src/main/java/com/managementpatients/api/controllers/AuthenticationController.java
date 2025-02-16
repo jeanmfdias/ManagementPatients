@@ -2,7 +2,7 @@ package com.managementpatients.api.controllers;
 
 import com.managementpatients.api.infra.security.AuthTokenDto;
 import com.managementpatients.api.domains.users.DataLoginDto;
-import com.managementpatients.api.domains.users.TokenService;
+import com.managementpatients.api.infra.security.TokenService;
 import com.managementpatients.api.domains.users.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
