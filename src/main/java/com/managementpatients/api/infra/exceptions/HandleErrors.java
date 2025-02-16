@@ -1,4 +1,4 @@
-package com.managementpatients.api.infra;
+package com.managementpatients.api.infra.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
