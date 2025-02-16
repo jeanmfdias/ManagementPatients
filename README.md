@@ -4,7 +4,7 @@
 - [x] List all doctors
 - [x] Update a doctor
 - [x] Delete a doctor
-- [ ] Create a patient
+- [x] Create a patient
 - [ ] List all patients
 - [ ] Update a patient
 - [ ] Delete a patient
