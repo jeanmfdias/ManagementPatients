@@ -1,4 +1,4 @@
-package com.managementpatients.api.configs;
+package com.managementpatients.api.infra.http;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
