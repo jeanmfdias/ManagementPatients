@@ -7,11 +7,11 @@ import com.managementpatients.api.domains.patients.dto.PatientDto;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -30,6 +30,12 @@ public class PatientController {
         Patient patient = patientService.save(dto);
         URI uri = uriBuilder.path("/patients/{id}").buildAndExpand(patient.getId()).toUri();
         return ResponseEntity.created(uri).body(new PatientDto(patient));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<PatientDto>> listAll(@PageableDefault(size = 10, sort = {"name"}) Pageable pagination) {
+        var page = this.patientService.listAllPagination(pagination).map(PatientDto::new);
+        return ResponseEntity.ok(page);
     }
 
 }
