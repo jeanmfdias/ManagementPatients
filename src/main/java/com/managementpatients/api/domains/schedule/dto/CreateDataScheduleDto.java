@@ -5,8 +5,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record CreateDataScheduleDto(@NotNull
-                                    Long doctorId,
+public record CreateDataScheduleDto(Long doctorId,
 
                                     @NotNull
                                     Long patientId,
