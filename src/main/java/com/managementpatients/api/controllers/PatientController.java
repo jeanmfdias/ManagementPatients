@@ -25,7 +25,8 @@ public class PatientController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<PatientDto> create(@RequestBody @Valid CreateDataPatientDto dto, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<PatientDto> create(@RequestBody @Valid CreateDataPatientDto dto,
+                                             UriComponentsBuilder uriBuilder) {
         Patient patient = patientService.save(dto);
         URI uri = uriBuilder.path("/patients/{id}").buildAndExpand(patient.getId()).toUri();
         return ResponseEntity.created(uri).body(new PatientDto(patient));
