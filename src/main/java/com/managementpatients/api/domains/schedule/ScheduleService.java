@@ -2,6 +2,7 @@ package com.managementpatients.api.domains.schedule;
 
 import com.managementpatients.api.domains.doctor.Doctor;
 import com.managementpatients.api.domains.doctor.IDoctorRepository;
+import com.managementpatients.api.domains.doctor.Specialty;
 import com.managementpatients.api.domains.patients.IPatientRepository;
 import com.managementpatients.api.domains.schedule.dto.CreateDataScheduleDto;
 import com.managementpatients.api.domains.schedule.exceptions.ValidationScheduleException;
@@ -29,7 +30,7 @@ public class ScheduleService {
             throw new ValidationScheduleException("Doctor not found.");
         }
 
-        var doctor = chooseDoctor(dataScheduleDto.doctorId());
+        var doctor = chooseDoctor(dataScheduleDto);
         var patient = patientRepository.findById(dataScheduleDto.patientId());
 
         if (doctor != null && patient.isPresent()) {
@@ -40,15 +41,19 @@ public class ScheduleService {
         return null;
     }
 
-    private Doctor chooseDoctor(Long doctorId) {
-        if (doctorId != null) {
-            var doctor = doctorRepository.findById(doctorId);
+    private Doctor chooseDoctor(CreateDataScheduleDto dataScheduleDto) {
+        if (dataScheduleDto.doctorId() != null) {
+            var doctor = doctorRepository.findById(dataScheduleDto.doctorId());
             if (doctor.isPresent()) {
                 return doctor.get();
             }
         }
 
-        return null;
+        if (dataScheduleDto.specialty() != null) {
+            return doctorRepository.chooseRandomDoctorIsDateFree(dataScheduleDto.specialty(), dataScheduleDto.date());
+        }
+
+        throw new ValidationScheduleException("Speciality not found");
     }
 
 }

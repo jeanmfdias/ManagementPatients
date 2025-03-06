@@ -5,9 +5,9 @@
 - [x] Update a doctor
 - [x] Delete a doctor
 - [x] Create a patient
-- [ ] List all patients
+- [x] List all patients
 - [ ] Update a patient
 - [ ] Delete a patient
-- [ ] Schedule an appointment
+- [x] Schedule an appointment
 - [ ] Update a schedule
 - [ ] Delete a schedule

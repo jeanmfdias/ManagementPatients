@@ -1,5 +1,6 @@
 package com.managementpatients.api.domains.schedule.dto;
 
+import com.managementpatients.api.domains.doctor.Specialty;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
@@ -12,5 +13,7 @@ public record CreateDataScheduleDto(Long doctorId,
 
                                     @NotNull
                                     @Future
-                                    LocalDateTime date) {
+                                    LocalDateTime date,
+
+                                    Specialty specialty) {
 }
