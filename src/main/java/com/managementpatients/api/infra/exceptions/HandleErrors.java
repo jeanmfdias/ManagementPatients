@@ -1,5 +1,6 @@
 package com.managementpatients.api.infra.exceptions;
 
+import com.managementpatients.api.domains.schedule.exceptions.ValidationScheduleException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,11 @@ public class HandleErrors {
                 .map(DataValidationError::new)
                 .toList();
         return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(ValidationScheduleException.class)
+    public ResponseEntity handleValidationScheduleException(ValidationScheduleException exception) {
+        return ResponseEntity.badRequest().body(exception.getMessage());
     }
 
     private record DataValidationError(String field, String message) {
