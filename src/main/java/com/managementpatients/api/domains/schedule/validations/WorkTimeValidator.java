@@ -2,10 +2,12 @@ package com.managementpatients.api.domains.schedule.validations;
 
 import com.managementpatients.api.domains.schedule.dto.CreateDataScheduleDto;
 import com.managementpatients.api.domains.schedule.exceptions.ValidationScheduleException;
+import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 
-public class WorkTimeValidator {
+@Component
+public class WorkTimeValidator implements ScheduleValidator {
 
     public void valid(CreateDataScheduleDto dataScheduleDto) {
         var date = dataScheduleDto.date();

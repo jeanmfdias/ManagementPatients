@@ -2,11 +2,13 @@ package com.managementpatients.api.domains.schedule.validations;
 
 import com.managementpatients.api.domains.schedule.dto.CreateDataScheduleDto;
 import com.managementpatients.api.domains.schedule.exceptions.ValidationScheduleException;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class BeforeTimeValidator {
+@Component
+public class BeforeTimeValidator implements ScheduleValidator {
 
     public void valid(CreateDataScheduleDto createDataScheduleDto) {
         var date = createDataScheduleDto.date();

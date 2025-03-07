@@ -7,8 +7,11 @@ import com.managementpatients.api.domains.patients.IPatientRepository;
 import com.managementpatients.api.domains.schedule.dto.CancelDataScheduleDto;
 import com.managementpatients.api.domains.schedule.dto.CreateDataScheduleDto;
 import com.managementpatients.api.domains.schedule.exceptions.ValidationScheduleException;
+import com.managementpatients.api.domains.schedule.validations.ScheduleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ScheduleService {
@@ -22,6 +25,9 @@ public class ScheduleService {
     @Autowired
     private IDoctorRepository doctorRepository;
 
+    @Autowired
+    private List<ScheduleValidator> validators;
+
     public Schedule save(CreateDataScheduleDto dataScheduleDto) {
         if (!this.patientRepository.existsById(dataScheduleDto.patientId())) {
             throw new ValidationScheduleException("Patient not found");
@@ -30,6 +36,8 @@ public class ScheduleService {
         if (dataScheduleDto.doctorId() != null && !this.doctorRepository.existsById(dataScheduleDto.doctorId())) {
             throw new ValidationScheduleException("Doctor not found.");
         }
+
+        validators.forEach(v -> v.valid(dataScheduleDto));
 
         var doctor = chooseDoctor(dataScheduleDto);
         var patient = patientRepository.findById(dataScheduleDto.patientId());
