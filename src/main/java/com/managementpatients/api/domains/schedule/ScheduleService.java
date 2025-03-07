@@ -4,6 +4,7 @@ import com.managementpatients.api.domains.doctor.Doctor;
 import com.managementpatients.api.domains.doctor.IDoctorRepository;
 import com.managementpatients.api.domains.doctor.Specialty;
 import com.managementpatients.api.domains.patients.IPatientRepository;
+import com.managementpatients.api.domains.schedule.dto.CancelDataScheduleDto;
 import com.managementpatients.api.domains.schedule.dto.CreateDataScheduleDto;
 import com.managementpatients.api.domains.schedule.exceptions.ValidationScheduleException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,23 @@ public class ScheduleService {
         var patient = patientRepository.findById(dataScheduleDto.patientId());
 
         if (doctor != null && patient.isPresent()) {
-            Schedule schedule = new Schedule(null, doctor, patient.get(), dataScheduleDto.date());
+            Schedule schedule = new Schedule(null, doctor, patient.get(), dataScheduleDto.date(), null);
             scheduleRepository.save(schedule);
             return schedule;
+        }
+        return null;
+    }
+
+    public Schedule cancel(CancelDataScheduleDto dataScheduleDto) {
+        if (!this.scheduleRepository.existsById(dataScheduleDto.scheduleId())) {
+            throw new ValidationScheduleException("Schedule not found");
+        }
+
+        var schedule = this.scheduleRepository.findById(dataScheduleDto.scheduleId());
+        if (schedule.isPresent()) {
+            schedule.get().setCancelReason(dataScheduleDto.cancelReason());
+            this.scheduleRepository.save(schedule.get());
+            return schedule.get();
         }
         return null;
     }

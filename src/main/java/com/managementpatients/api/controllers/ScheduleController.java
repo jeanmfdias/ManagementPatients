@@ -2,6 +2,7 @@ package com.managementpatients.api.controllers;
 
 import com.managementpatients.api.domains.schedule.Schedule;
 import com.managementpatients.api.domains.schedule.ScheduleService;
+import com.managementpatients.api.domains.schedule.dto.CancelDataScheduleDto;
 import com.managementpatients.api.domains.schedule.dto.CreateDataScheduleDto;
 import com.managementpatients.api.domains.schedule.dto.ScheduleDto;
 import jakarta.transaction.Transactional;
@@ -24,6 +25,13 @@ public class ScheduleController {
     @Transactional
     public ResponseEntity<ScheduleDto> create(@RequestBody @Valid CreateDataScheduleDto dataScheduleDto) {
         Schedule schedule = scheduleService.save(dataScheduleDto);
+        return ResponseEntity.ok(new ScheduleDto(schedule));
+    }
+
+    @PostMapping("cancel")
+    @Transactional
+    public ResponseEntity<ScheduleDto> cancel(@RequestBody @Valid CancelDataScheduleDto dataScheduleDto) {
+        Schedule schedule = scheduleService.cancel(dataScheduleDto);
         return ResponseEntity.ok(new ScheduleDto(schedule));
     }
 

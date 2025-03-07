@@ -10,4 +10,4 @@
 - [ ] Delete a patient
 - [x] Schedule an appointment
 - [ ] Update a schedule
-- [ ] Delete a schedule
+- [x] Delete a schedule

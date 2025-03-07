@@ -1,0 +1,1 @@
+ALTER TABLE schedules ADD COLUMN cancel_reason VARCHAR(255);

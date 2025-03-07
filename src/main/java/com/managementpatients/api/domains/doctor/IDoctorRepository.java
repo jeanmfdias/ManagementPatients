@@ -13,10 +13,10 @@ public interface IDoctorRepository extends JpaRepository<Doctor, Long> {
 
     @Query("""
             SELECT d FROM Doctor d
-            WHERE d.deleted_at IS NULL
-            AND d.speciality = :specialty
+            WHERE d.deletedAt IS NULL
+            AND d.specialty = :specialty
             AND d.id NOT IN (
-                SELECT s.doctor_id FROM Schedule s
+                SELECT s.id FROM Schedule s
                 WHERE s.date = :date
             )
             ORDER BY RAND()
