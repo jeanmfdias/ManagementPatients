@@ -4,6 +4,7 @@ import com.managementpatients.api.domains.patients.Patient;
 import com.managementpatients.api.domains.patients.PatientService;
 import com.managementpatients.api.domains.patients.dto.CreateDataPatientDto;
 import com.managementpatients.api.domains.patients.dto.PatientDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("patients")
+@SecurityRequirement(name = "bearer-key")
 public class PatientController {
 
     @Autowired

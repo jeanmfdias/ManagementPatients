@@ -5,6 +5,7 @@ import com.managementpatients.api.domains.schedule.ScheduleService;
 import com.managementpatients.api.domains.schedule.dto.CancelDataScheduleDto;
 import com.managementpatients.api.domains.schedule.dto.CreateDataScheduleDto;
 import com.managementpatients.api.domains.schedule.dto.ScheduleDto;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("schedule")
+@SecurityRequirement(name = "bearer-key")
 public class ScheduleController {
 
     @Autowired
