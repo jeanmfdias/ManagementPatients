@@ -19,7 +19,7 @@ public interface IDoctorRepository extends JpaRepository<Doctor, Long> {
                 SELECT s.id FROM Schedule s
                 WHERE s.date = :date
             )
-            ORDER BY RAND()
+            ORDER BY RANDOM()
             LIMIT 1
             """)
     Doctor chooseRandomDoctorIsDateFree(Specialty specialty, LocalDateTime date);
